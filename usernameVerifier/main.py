@@ -345,8 +345,8 @@ def load_csv_sheet(csv_sheet_path):
                 continue
             if all(x == 'None' or x == '' for x in row):  # Stop if all cells in the row are empty
                 break
-            handle, name = row
-            geeksforgeeks_handle, codeforces_handle, leetcode_handle, codechef_handle, hackerrank_handle = row
+            handle, name = row[:2]
+            geeksforgeeks_handle, codeforces_handle, leetcode_handle, codechef_handle, hackerrank_handle = row[2:7]
             print(f"( {count} / {total_rows} ) Loading participant {handle}")  # Print progress
             participant = Participant(handle, geeksforgeeks_handle, codeforces_handle, leetcode_handle, codechef_handle,
                                       hackerrank_handle)  # Create Participant object
