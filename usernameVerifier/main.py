@@ -331,10 +331,13 @@ def load_csv_sheet(csv_sheet_path):
     list: A list of Participant objects
     """
     participants = []
+    with open(csv_sheet_path, 'r') as temp_file:
+        temp_reader = csv.reader(temp_file)  # Create a temporary reader to count total rows
+        total_rows = sum(1 for _ in temp_reader) - 2  # Calculate total rows in the CSV
+        # close the temporary file
+        temp_file.close()
     with open(csv_sheet_path, 'r') as file:
         reader = csv.reader(file)
-        temp_reader = csv.reader(file)  # Create a temporary reader to count total rows
-        total_rows = sum(1 for row in temp_reader) - 2  # Calculate total rows in the CSV
         print(f"Total rows in CSV: {total_rows}")  # Print the total rows in the CSV
         count = 1
         for row in reader:
@@ -349,6 +352,8 @@ def load_csv_sheet(csv_sheet_path):
                                       hackerrank_handle)  # Create Participant object
             participants.append(participant)  # Add Participant object to list
             count += 1
+    print("Finished loading participants")
+    file.close()
     return participants
 
 
